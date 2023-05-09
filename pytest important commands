@@ -1,0 +1,9 @@
+command :-1
+
+pytest -v -spytest --verbose -s --capture=tee-sys .\testCases\ --browser edge
+
+
+If we use this command we can get all the LOGS as well that we have used in the test case code . (Very Very Important)
+
+
+==========================================================================================================================================

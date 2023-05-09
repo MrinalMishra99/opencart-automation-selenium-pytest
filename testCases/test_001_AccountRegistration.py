@@ -1,3 +1,4 @@
+import os
 import time
 
 from pageObjects.AccountRegistration import AccountRegistration
@@ -34,3 +35,6 @@ class TestAccountRegistrationPage:
         self.rp.selectTerms()
         self.rp.clickContinue()
         self.driver.close()
+
+        # For taking screenshots we need to put this in the asserts that we use for validation
+        # self.driver.save_screenshot(os.path.abspath(os.curdir) + "\\screenshots\\" + "test_account_reg.png")
