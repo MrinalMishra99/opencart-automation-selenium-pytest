@@ -1,20 +1,22 @@
 import os
 import time
 
+import pytest
+
 from pageObjects.AccountRegistration import AccountRegistration
 from pageObjects.HomePage import HomePage
 from utilities import randomString
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
-
+@pytest.mark.usefixtures("setUp")
 class TestAccountRegistrationPage:
     basUrl = ReadConfig.get_application_url()
     logger = LogGen.loggen()
 
     def test_account_reg(self, setUp):
         self.logger.info("**** test_001_AccountRegistration started ****")
-        self.driver = setUp
+        # self.driver = setUp
         self.driver.get(self.basUrl)
         self.logger.info("**** launching application ****")
         self.driver.maximize_window()
@@ -34,7 +36,6 @@ class TestAccountRegistrationPage:
         self.rp.setSubscription()
         self.rp.selectTerms()
         self.rp.clickContinue()
-        self.driver.close()
 
         # For taking screenshots we need to put this in the asserts that we use for validation
         # self.driver.save_screenshot(os.path.abspath(os.curdir) + "\\screenshots\\" + "test_account_reg.png")

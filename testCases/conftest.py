@@ -6,18 +6,32 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+# @pytest.fixture()
+# def setUp(browser):
+#     if browser == 'edge':
+#         driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+#     else:
+#         driver = webdriver.Chrome(ChromeDriverManager().install())
+#     return driver
 
 @pytest.fixture()
-def setUp(browser):
+def setUp(request):
+    browser = request.config.getoption("browser")
     if browser == 'edge':
         driver = webdriver.Edge(EdgeChromiumDriverManager().install())
     else:
         driver = webdriver.Chrome(ChromeDriverManager().install())
-    return driver
+    request.cls.driver = driver
+    yield
+    driver.close()
 
+# def pytest_addoption(parser):
+#     parser.addoption("--browser")
 
 def pytest_addoption(parser):
-    parser.addoption("--browser")
+    parser.addoption(
+        "--browser", action="store", default='chrome'
+    )
 
 
 @pytest.fixture()
