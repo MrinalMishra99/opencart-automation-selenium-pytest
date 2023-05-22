@@ -1,10 +1,12 @@
+import pytest
+
 from pageObjects.HomePage import HomePage
 from pageObjects.LoginPage import LoginPage
 from utilities import randomString
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
-
+@pytest.mark.usefixtures("setUp")
 class TestLogin():
     baseUrl = ReadConfig.get_application_url()
     logger = LogGen.loggen()
@@ -12,9 +14,11 @@ class TestLogin():
     user = ReadConfig.get_user_email()
     password = ReadConfig.get_user_password()
 
-    def test_account_login(self, setUp):
+    # def test_account_login(self, setUp):
+    def test_account_login(self):
+
         self.logger.info("**** test_002_Login started ****")
-        self.driver = setUp
+        # self.driver = setUp
         self.driver.get(self.baseUrl)
         self.driver.maximize_window()
         self.logger.info("**** Getting data from Home Page ****")
